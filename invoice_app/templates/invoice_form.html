@@ -1,0 +1,78 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Invoice-Generator</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+  </head>
+  <body>
+
+    <nav class="navbar">
+        <h2>Invoice Generator</h2>
+    </nav>
+    
+    <div class="container" >
+   
+        <form method="post">
+            {% csrf_token %}
+            <h3>Organisation Details</h3>
+            <div class = "address_form">
+            {{addform.as_p}}
+            </div>
+            <h3>Customer Details</h3>
+            {{ form.as_p }}
+        
+            <h3>Items</h3>
+            {{ formset.management_form }}
+            <div id="item-forms" style="border: 2px solid #18732e;   border-radius: 20px;">
+                {% for form in formset %}
+                    <div class="item-form">{{ form.as_p }}</div>
+                {% endfor %}
+            </div>
+        
+            <button type="button" id="add-item" style=" margin-top:30px;
+                                                        padding: 5px;
+                                                        padding-left:12.5px;
+                                                        padding-right:12.5px;
+                                                        background: #18732e;
+                                                        color:white;
+                                                        font-size:30px;
+                                                        border:1px solid #18732e; 
+                                                        border-radius: 100px">+</button>
+
+            <div class="submit_botton">
+            <button type="submit"  style = "
+                                            background:#18732e; 
+                                            color:white;
+                                            font-size:16px;
+                                            margin-top: 50px;
+                                            padding: 15px;
+                                            padding-left:100px;
+                                            padding-right:100px;
+                                            border:1px solid white; 
+                                            border-radius: 100px">Generate PDF</button>
+            </div>
+        </form>
+        </div>
+        
+        <script>
+            document.getElementById("add-item").addEventListener("click", function () {
+                let formIdx = document.querySelectorAll(".item-form").length;
+                let newForm = document.querySelector(".item-form").cloneNode(true);
+                newForm.innerHTML = newForm.innerHTML.replace(/-\d+-/g, `-${formIdx}-`);
+                document.getElementById("item-forms").appendChild(newForm);
+                document.getElementById("id_form-TOTAL_FORMS").value = formIdx + 1;
+            });
+        </script>
+        <footer class="footer">
+            <p><a href="https://asrwebportfolio.netlify.app/"target="_blank" style = "text-decoration:none; color:inherit;">Developed by ASR</a></p>
+        </footer>
+  </body>
+</html>
+
+
+
