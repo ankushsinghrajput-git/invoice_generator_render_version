@@ -26,7 +26,7 @@ SECRET_KEY = "django-insecure-9qk+2$pqxs_y-2qm=kk+a4ow^#2a!xd5n#u1l8%uiz*m#=btni
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['django-invoice-generator.com']
+ALLOWED_HOSTS = ['django-invoice-generator.onrender.com']
 
 
 
@@ -127,3 +127,5 @@ STATICFILES_DIRS = [
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+CSRF_TRUSTED_ORIGINS = ['https://django-invoice-generator.onrender.com']
